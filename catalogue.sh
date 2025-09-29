@@ -9,7 +9,7 @@ USERID=$(id -u)
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$(basename "$0" .sh)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" 
-MONGODB_HOST=practicedev.shop
+MONGODB_HOST=mongodb.practicedev.shop
 SCRIPT_DIR=$PWD
 
 mkdir -p $LOGS_FOLDER
