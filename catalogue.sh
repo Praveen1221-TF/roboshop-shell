@@ -10,6 +10,7 @@ LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$(basename "$0" .sh)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" 
 MONGODB_HOST=practicedev.shop
+SCRIPT_DIR=$PWD
 
 mkdir -p $LOGS_FOLDER
 echo "script started excuted at : $(date)" | tee -a $LOG_FILE
@@ -62,12 +63,10 @@ VALIDATE $? "Unzipping catalogue"
 npm install  &>>$LOG_FILE
 VALIDATE $? "NPM Installed"
 
-cp catalogue.service /etc/systemd/system/catalogue.service  &>>$LOG_FILE
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service  &>>$LOG_FILE
 VALIDATE $? "Copied Systemd Catalogue.service"
 
 systemctl daemon-reload  &>>$LOG_FILE
-VALIDATE $? "Deemon-Reload"
-
 systemctl enable catalogue  &>>$LOG_FILE
 VALIDATE $? "Enabling catalogue"
 
