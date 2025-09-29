@@ -41,7 +41,7 @@ VALIDATE $? "Intalled NDJS"
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
 VALIDATE $? "Adding system User"
 
-mkdir /app &&>>$LOG_FILE
+mkdir /app &>>$LOG_FILE
 VALIDATE $? "Creating App Direactory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE    
@@ -53,7 +53,7 @@ VALIDATE $? "Changing to app direactory"
 unzip /tmp/catalogue.zip  &>>$LOG_FILE
 VALIDATE $? "Unzipping catalogue"
 
-npm install  &&>>$LOG_FILE
+npm install  &>>$LOG_FILE
 VALIDATE $? "NPM Installed"
 
 systemctl daemon-reload  &>>$LOG_FILE
