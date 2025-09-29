@@ -62,14 +62,14 @@ VALIDATE $? "Unzipping catalogue"
 npm install  &>>$LOG_FILE
 VALIDATE $? "NPM Installed"
 
+cp catalogue.service /etc/systemd/system/catalogue.service  &>>$LOG_FILE
+VALIDATE $? "Copied Systemd Catalogue.service"
+
 systemctl daemon-reload  &>>$LOG_FILE
 VALIDATE $? "Deemon-Reload"
 
 systemctl enable catalogue  &>>$LOG_FILE
 VALIDATE $? "Enabling catalogue"
-
-cp catalogue.service /etc/systemd/system/catalogue.service  &>>$LOG_FILE
-VALIDATE $? "Copied Systemd Catalogue.service"
 
 dnf install mongodb-mongosh -y  &>>$LOG_FILE
 VALIDATE $? "Installed mongodb-mongosh"
