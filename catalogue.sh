@@ -29,48 +29,48 @@ VALIDATE(){
     fi
 }   
 
-dnf module disable nodejs -y &&>>$LOG_FILE
+dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "Disiabling"
 
-dnf module enable nodejs:20 -y &&>>$LOG_FILE
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "Enabling NJ20"
 
-dnf install nodejs -y &&>>$LOG_FILE
+dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Intalled NDJS"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &&>>$LOG_FILE
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
 VALIDATE $? "Adding system User"
 
 mkdir /app &&>>$LOG_FILE
 VALIDATE $? "Creating App Direactory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &&>>$LOG_FILE    
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE    
 VALIDATE $? "Getting catalogue repo"
 
 cd /app 
 VALIDATE $? "Changing to app direactory"
 
-unzip /tmp/catalogue.zip  &&>>$LOG_FILE
+unzip /tmp/catalogue.zip  &>>$LOG_FILE
 VALIDATE $? "Unzipping catalogue"
 
 npm install  &&>>$LOG_FILE
 VALIDATE $? "NPM Installed"
 
-systemctl daemon-reload  &&>>$LOG_FILE
+systemctl daemon-reload  &>>$LOG_FILE
 VALIDATE $? "Deemon-Reload"
 
-systemctl enable catalogue  &&>>$LOG_FILE
+systemctl enable catalogue  &>>$LOG_FILE
 VALIDATE $? "Enabling catalogue"
 
-cp catalogue.service /etc/systemd/system/catalogue.service  &&>>$LOG_FILE
+cp catalogue.service /etc/systemd/system/catalogue.service  &>>$LOG_FILE
 VALIDATE $? "Copied Systemd Catalogue.service"
 
-dnf install mongodb-mongosh -y  &&>>$LOG_FILE
+dnf install mongodb-mongosh -y  &>>$LOG_FILE
 VALIDATE $? "Installed mongodb-mongosh"
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js  &&>>$LOG_FILE
+mongosh --host $MONGODB_HOST </app/db/master-data.js  &>>$LOG_FILE
 VALIDATE $? "Load Catalogue Products"
 
-systemctl restart catalogue  &&>>$LOG_FILE
+systemctl restart catalogue  &>>$LOG_FILE
 VALIDATE $? "Restarted"
 
