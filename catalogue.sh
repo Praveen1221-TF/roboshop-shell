@@ -37,11 +37,14 @@ VALIDATE $? "Enabling NJ20"
 
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Intalled NDJS"
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
+    VALIDATE $? "Adding system User"
+else        
+    echo "$G skipping....$N"
+fi        
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
-VALIDATE $? "Adding system User"
-
-mkdir /app &>>$LOG_FILE
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "Creating App Direactory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE    
