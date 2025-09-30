@@ -10,7 +10,7 @@ SCRIPT_NAME=$(basename "$0" .sh)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" 
 
 mkdir -p $LOGS_FOLDER
-SCRIPT_DIR=$(PWD)
+SCRIPT_DIR=($PWD)
 echo "script started excuted at : $(date)" | tee -a $LOG_FILE
 
 if [ $USERID -ne 0 ]; then        
