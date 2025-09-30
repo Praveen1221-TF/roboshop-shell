@@ -39,7 +39,7 @@ VALIDATE $? "Intalled redis"
 sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 VALIDATE $? "allowing remote connections to redis"
 
-systemctl enable mongod &>>$LOG_FILE
+systemctl enable redis &>>$LOG_FILE
 VALIDATE $? "Enable redis"
 
 systemctl start redis &>>$LOG_FILE
